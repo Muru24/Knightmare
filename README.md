@@ -53,3 +53,6 @@
 - 전체 Unity 프로젝트가 아니므로 단독 실행 및 빌드는 지원하지 않습니다.
 - 프리팹, 머티리얼, 씬, 외부 에셋 등 일부 의존 리소스는 포함되어 있지 않습니다
 - 상점 관련 구현 범위는 상점방의 생성·배치 및 미니맵 연동까지입니다.
+
+## 관련 링크
+Notions https://app.notion.com/p/Knightmare-3d22205a32f58118bcacd46be4803cc5?source=copy_link
