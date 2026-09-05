@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    // 벽 방향
     public enum WallType
     {
         left, top, right, bottom

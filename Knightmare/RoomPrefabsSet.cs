@@ -9,7 +9,7 @@ public class RoomPrefabsSet : Singleton<RoomPrefabsSet>
     public List<string> roomPrefabsName;
     public List<GameObject> roomPrefabsList;
 
-    // Start is called before the first frame update
+    // 방 이름과 프리팹을 딕셔너리에 등록
     void Awake()
     {
         for (int i = 0; i < roomPrefabsName.Count; i++)

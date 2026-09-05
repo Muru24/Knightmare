@@ -14,6 +14,7 @@ public class RoomController : Singleton<RoomController>
 
     public bool isLoadingRoom = false;
 
+    // 기존 방을 정리하고 던전 생성
     public void CreatedRoom()
     {
         isLoadingRoom = false;
@@ -29,6 +30,7 @@ public class RoomController : Singleton<RoomController>
 
     }
 
+    // 생성된 방들의 문과 벽 연결
     void SetRoomPath()
     {
         if (isLoadingRoom)
@@ -44,6 +46,7 @@ public class RoomController : Singleton<RoomController>
         }
     }
 
+    // 방 데이터에 맞는 프리팹 생성
     public void LoadRoom(RoomInfo settingRoom)
     {
         if (DoesRoomExist(settingRoom.center_Position.x, settingRoom.center_Position.y, settingRoom.center_Position.z))
@@ -92,6 +95,7 @@ public class RoomController : Singleton<RoomController>
         return loadedRooms.Find(item => item.center_Position.x == x && item.center_Position.y == y && item.center_Position.z == z);
     }
 
+    // 플레이어가 들어온 방 저장
     public void OnPlayerEnterRoom(Room room)
     {
         currRoom = room;

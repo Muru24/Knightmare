@@ -36,7 +36,7 @@ public class SubRoom : MonoBehaviour
     
     void Start()
     {
-        //방에 있는 문과 벽의 정보 가져오기
+        // 방에 있는 문과 벽 정보 가져오기
         Door[] ds = GetComponentsInChildren<Door>();
 
         foreach (Door d in ds)
@@ -104,6 +104,7 @@ public class SubRoom : MonoBehaviour
 
     }
 
+    // 복합 방을 부모 방 아래로 이동
     public void updateRoomSetup()
     {
         if (!roomType.Equals("Single"))
@@ -118,6 +119,7 @@ public class SubRoom : MonoBehaviour
         }
     }
 
+    // 인접 방에 따라 문과 벽 설정
     public void RemoveUnconnectedWalls()
     {
         Vector3 tmpCenterPos = transform.parent.gameObject.GetComponent<Room>().parent_Position;
@@ -285,6 +287,7 @@ public class SubRoom : MonoBehaviour
             wallType = "None";
     }
 
+    // 오른쪽 방 찾기
     public Room GetRight()
     {
         if (RoomController.Instance.DoesRoomExist(center_Position.x + 1, center_Position.y, center_Position.z))
@@ -293,6 +296,7 @@ public class SubRoom : MonoBehaviour
         }
         return null;
     }
+    // 왼쪽 방 찾기
     public Room GetLeft()
     {
         if (RoomController.Instance.DoesRoomExist(center_Position.x - 1, center_Position.y, center_Position.z))
@@ -301,6 +305,7 @@ public class SubRoom : MonoBehaviour
         }
         return null;
     }
+    // 위쪽 방 찾기
     public Room GetTop()
     {
         if (RoomController.Instance.DoesRoomExist(center_Position.x, center_Position.y, center_Position.z + 1))
@@ -309,6 +314,7 @@ public class SubRoom : MonoBehaviour
         }
         return null;
     }
+    // 아래쪽 방 찾기
     public Room GetBottom()
     {
         if (RoomController.Instance.DoesRoomExist(center_Position.x, center_Position.y, center_Position.z - 1))
@@ -318,6 +324,7 @@ public class SubRoom : MonoBehaviour
         return null;
     }
 
+    // 플레이어가 들어온 방 갱신
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Player")

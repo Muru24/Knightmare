@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Room : MonoBehaviour
 {
+    // 방 크기
     public int Width;
     public int Height;
 
+    // 방 정보
     public string roomName;
     public string roomType;
     public string roomId;
@@ -74,6 +76,7 @@ public class Room : MonoBehaviour
             childRooms.RemoveUnconnectedWalls();
     }
 
+    // 문과 벽을 한 번만 갱신
     void Update()
     {
         if (!isUpdatedWalls)
@@ -90,6 +93,7 @@ public class Room : MonoBehaviour
         return new Vector3(center_Position.x, 0, center_Position.z);
     }
 
+    // 플레이어가 들어온 방 갱신
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Player")

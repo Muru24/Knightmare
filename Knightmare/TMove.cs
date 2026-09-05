@@ -5,12 +5,12 @@ using UnityEngine;
 public class TMove : MonoBehaviour
 {
 
-    public float speed;      // Ä³¸¯ÅÍ ¿òÁ÷ÀÓ ½ºÇÇµå.
-    public float jumpSpeed; // Ä³¸¯ÅÍ Á¡ÇÁ Èû.
-    public float gravity;    // Ä³¸¯ÅÍ¿¡°Ô ÀÛ¿ëÇÏ´Â Áß·Â.
+    public float speed;      // ìºë¦­í„° ì´ë™ ì†ë„
+    public float jumpSpeed;  // ìºë¦­í„° ì í”„ í˜
+    public float gravity;    // ìºë¦­í„°ì—ê²Œ ì ìš©í•  ì¤‘ë ¥
 
-    private CharacterController controller; // ÇöÀç Ä³¸¯ÅÍ°¡ °¡Áö°íÀÖ´Â Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ Äİ¶óÀÌ´õ.
-    private Vector3 MoveDir;                // Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÌ´Â ¹æÇâ.
+    private CharacterController controller; // ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬
+    private Vector3 MoveDir;                // ìºë¦­í„° ì´ë™ ë°©í–¥
 
     void Start()
     {
@@ -24,28 +24,28 @@ public class TMove : MonoBehaviour
 
     void Update()
     {
-        // ÇöÀç Ä³¸¯ÅÍ°¡ ¶¥¿¡ ÀÖ´Â°¡?
+        // ë•…ì— ìˆì„ ë•Œ ì´ë™ê³¼ ì í”„ ì…ë ¥ ì²˜ë¦¬
         if (controller.isGrounded)
         {
-            // À§, ¾Æ·¡ ¿òÁ÷ÀÓ ¼ÂÆÃ. 
+            // ì´ë™ ë°©í–¥ ì„¤ì •
             MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            // º¤ÅÍ¸¦ ·ÎÄÃ ÁÂÇ¥°è ±âÁØ¿¡¼­ ¿ùµå ÁÂÇ¥°è ±âÁØÀ¸·Î º¯È¯ÇÑ´Ù.
+            // ë¡œì»¬ ë°©í–¥ì„ ì›”ë“œ ë°©í–¥ìœ¼ë¡œ ë³€í™˜
             MoveDir = transform.TransformDirection(MoveDir);
 
-            // ½ºÇÇµå Áõ°¡.
+            // ì´ë™ ì†ë„ ì ìš©
             MoveDir *= speed;
 
-            // Ä³¸¯ÅÍ Á¡ÇÁ
+            // ì í”„
             if (Input.GetButton("Jump"))
                 MoveDir.y = jumpSpeed;
 
         }
 
-        // Ä³¸¯ÅÍ¿¡ Áß·Â Àû¿ë.
+        // ì¤‘ë ¥ ì ìš©
         MoveDir.y -= gravity * Time.deltaTime;
 
-        // Ä³¸¯ÅÍ ¿òÁ÷ÀÓ.
+        // ìºë¦­í„° ì´ë™
         controller.Move(MoveDir * Time.deltaTime);
     }
 }

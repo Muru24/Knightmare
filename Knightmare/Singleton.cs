@@ -6,6 +6,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     private static object _Lock = new object();
     private static T _Instance;
 
+    // 싱글톤 인스턴스 반환
     public static T Instance
     {
         get
@@ -35,6 +36,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    // 종료 중 새 인스턴스 생성 방지
     private void OnApplicationQuit()
     {
         _ShuttingDown = true;

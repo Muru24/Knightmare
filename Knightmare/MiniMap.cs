@@ -10,11 +10,12 @@ public enum STATE
 }
 public class MiniMap : MonoBehaviour
 {
-    //0 = missing
-    //1 = current
-    //2 = visit
+    // 0 = 미방문
+    // 1 = 현재 방
+    // 2 = 방문 완료
     public Material[] MinimapStatusMaterial;
 
+    // 미니맵 상태에 맞는 재질 적용
     public void ChangeMaterial(int mapState,GameObject floor)
     {
         if (mapState == (int)STATE.missing)

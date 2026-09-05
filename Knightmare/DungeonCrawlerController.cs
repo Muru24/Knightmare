@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
 {
+    // 상하좌우 방향
     public List<Vector3Int> direction4                      = new List<Vector3Int>
     {
         new Vector3Int( 0, 0,  1),       // down
@@ -64,9 +65,9 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
 
     public List<RoomInfo> validRoomList = new List<RoomInfo>();
 
-    public int minRoomCnt       = 15;                       // 최소 방 갯수
-    public int maxRoomCnt       = 20;                       // 최대 방 갯수
-    public int currRoomCnt      = 0;                        // 현재 방 갯수
+    public int minRoomCnt       = 15;                       // 최소 방 개수
+    public int maxRoomCnt       = 20;                       // 최대 방 개수
+    public int currRoomCnt      = 0;                        // 현재 방 개수
     public int maxDistance      = 5;                        // 최대 거리 제한
 
     public int validRoomCount   = 0;       
@@ -76,9 +77,10 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
 
     public RoomInfo[,] posArr = new RoomInfo[10, 10];       // 방 좌표에 대한 2차원 배열
 
+    // 랜덤 던전 생성
     public void CreatedRoom()
     {
-        // 배열 ReSize
+        // 배열 크기 변경
         posArr = (RoomInfo[,])ResizeArray(posArr, new int[] { (maxDistance * 2), (maxDistance * 2) });
 
         RealaseRoom();  // 초기화
@@ -112,7 +114,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         AddRoomLIst();
         SortRoomList(validRoomList);
 
-        // 특수방 BOSS 방 생성
+        // 특수 방 생성
         AddBossRoom();
         AddShopRoom();
         AddMiddleBossRoom();
@@ -122,6 +124,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
     
 
 
+    // 한 칸짜리 방 데이터 설정
     public RoomInfo AddSingleRoom(RoomInfo room, Vector3Int pos, string name)
     {
         RoomInfo single             = room;
@@ -173,6 +176,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         }
     }
 
+    // 방을 거리순으로 정렬
     public void SortRoomList(List<RoomInfo> root)
     {
         root.Sort(delegate (RoomInfo A, RoomInfo B)
@@ -186,6 +190,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         });
     }
 
+    // 배열 범위 확인
     public bool PossibleArr(Vector3Int pos)
     {
         if ((0 <= (pos).x && (pos).x < (maxDistance * 2))
@@ -197,6 +202,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
             return false;
     }
 
+    // 가장 먼 위치에 보스 방 생성
     public void AddBossRoom()
     {
         SortRoomList(validRoomList);
@@ -239,6 +245,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         }
     }
 
+    // 먼 위치에 상점 방 생성
     public void AddShopRoom()
     {
         SortRoomList(validRoomList);
@@ -279,6 +286,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         }
     }
 
+    // 먼 위치에 중간 보스 방 생성
     public void AddMiddleBossRoom()
     {
         SortRoomList(validRoomList);
@@ -369,6 +377,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
             RoomController.Instance.LoadRoom(roomsList[i]);
 
     }
+    // 생성된 방 목록 갱신
     public void AddRoomLIst()
     {
         validRoomList.Clear();
@@ -385,6 +394,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         }
     }
 
+    // 방 데이터 갱신
     public RoomInfo SingleRoom(RoomInfo pos, string name)
     {
         RoomInfo single = pos;
@@ -398,6 +408,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         return single;
     }
 
+    // 선택한 방 패턴 배치 가능 여부 확인
     public bool PossiblePatten(Vector3Int pos, List<Vector3Int> move)
     {
         bool possible = true;
@@ -418,6 +429,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         return possible;
     }
 
+    // 주변에 연결된 방 개수 확인
     public int AroundRoomCount(Vector3Int pos)
     {
         int count = 0;
@@ -462,7 +474,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
 
 
 
-    // Room 위치 및 방의 크키 지정
+    // 방 위치 및 크기 지정
     public void MakeRoomArray(Vector3Int start)
     {
         if (start.x >= (maxDistance * 2) || start.z >= (maxDistance * 2))
@@ -474,7 +486,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         // 사각형 방, 기억자, 니은자, -, |
         double[] persent = { 0.01, 0.03, 0.03, 0.1, 0.1, 0.1, 0.8 };
 
-        // 각 방향 패턴을 List화
+        // 각 방향 패턴을 리스트로 구성
         List<Dictionary<int, List<Vector3Int>>> collectPatten
             = new List<Dictionary<int, List<Vector3Int>>> { downPatten, rightPatten, leftPatten, upPatten };
 
@@ -511,7 +523,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
 
                         lastMove = move;
 
-                        // 미니맵 아이콘을 띄우기 위한 중앙 지점값 삽입
+                        // 미니맵 표시를 위한 중앙 지점 값 설정
                         switch (collectPatten[direction][selectPatten].Count)
                         {
                             case 2:
@@ -537,13 +549,14 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
                                 break;
                         }
                     }
-                    // 방의 갯수 증가
+                    // 방 개수 증가
                     currRoomCnt++;
                     MakeRoomArray(lastMove);
                 }
             }
         }
     }
+    // 목표 방 개수 도달 여부 확인
     public bool RoomCountCheck()
     {
         return ((minRoomCnt <= currRoomCnt && currRoomCnt <= maxRoomCnt));
@@ -569,8 +582,7 @@ public class DungeonCrawlerController : Singleton<DungeonCrawlerController>
         return probs.Length - 1;
     }
 
-    // 방의 갯수가 최소, 최대크기에 적합한지 체크
-
+    // 방 배열 크기 변경
     private static System.Array ResizeArray(System.Array arr, int[] newSizes)
     {
         if (newSizes.Length != arr.Rank)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    //문 정보 가진 스크립트
+    // 문 정보
     public enum DoorType
     {
         left, right, top, bottom
@@ -17,6 +17,7 @@ public class Door : MonoBehaviour
 
 
 
+    // 연결된 다음 방 설정
     public void setNextRoom(GameObject _nextRoom)
     {
         nextRoom = _nextRoom;
